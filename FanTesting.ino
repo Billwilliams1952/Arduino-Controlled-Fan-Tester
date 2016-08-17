@@ -16,6 +16,8 @@
 
 #define DEBUG_SERIAL
 
+#define FAN_PWM_CONTROL     0
+#define FAN_PWM_OUT         5
 #define TACH_INTERRUPT_PIN  3
 #define TACH_INTERRUPT_PIN_FOR_INT0  0
 #define BOARD_LED           13
@@ -31,6 +33,9 @@ void setup() {
     
     Serial1.begin(19200);
     Serial1.write(0xFE); Serial1.write(0x58); 
+    
+    pinMode(FAN_PWM_OUT,OUTPUT);
+    digitalWrite(FAN_PWM_OUT,LOW);
   
 #if defined ( DEBUG_SERIAL )
     Serial.begin(19200); 
@@ -41,15 +46,34 @@ void setup() {
 void loop() {   
     digitalWrite(BOARD_LED,millis() % 1000 > 500);
     
-    if ( tachReadingReady ) {
+    analogWrite(FAN_PWM_OUT,map(analogRead(FAN_PWM_CONTROL), 0, 1023, 0, 255));
+    
+    PrintTachReading();
+}
+
+void PrintTachReading ( void ) {
+   static unsigned long rpmTimeout = millis();
+   static boolean firstTime = true;
+    
+   if ( tachReadingReady ) {
       int rpm = (int)((float)tachPulseCount / (float)deltaTime  * 60.0e6);
       tachPulseCount = 0;
       tachReadingReady = false;
       Serial1.write(0xFE); Serial1.write(0x58); 
-      Serial1.print(RPM_STRING); Serial1.print(rpm);
+      Serial1.print("RPM: "); Serial1.print(rpm);
 #if defined ( DEBUG_SERIAL )
-      Serial.print(RPM_STRING); Serial.println(rpm);
+      Serial.print("RPM: "); Serial.println(rpm);
 #endif
+      rpmTimeout = millis();
+      firstTime = true;
+    }
+    
+    if ( millis() - rpmTimeout > 2000 ) {
+      if ( firstTime ) {
+        Serial1.write(0xFE); Serial1.write(0x58);
+        Serial1.print("RPM NOT DETECTED");
+        firstTime = false;
+      }
     }
 }
 
