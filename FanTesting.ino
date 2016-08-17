@@ -3,7 +3,7 @@
  * FanTesting.ino
  * 2016 WLWilliams
  * 
- * This sketch does something that I need to describe
+ * This sketch does TBS
  * 
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software Foundation,
