@@ -1,4 +1,4 @@
-# Arduino-Tachometer-Rangefinder
+# Arduino Controlled Fan Tester
 Arduino based circuit for testing PC fans.  General purpose circuitry to demonstrate programming and engineering concepts
 
 This project controls circuitry to test PC fans in a learning environment.
