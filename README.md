@@ -21,7 +21,7 @@ The program makes extensive use of the KY-040 Encoder library for the user inter
 
 ## Installation
 
-Create a new folder **fantesting** in your **sketchbook** directory, then download the **fantesting.ino** file into the newly created directory. Download the ZIP file of the **ky040** library from https://github.com/Billwilliams1952/KY-040-Encoder-Library---Arduino and extract it into the **sketchbook/libraries** folder.
+Create a new folder **fantesting** in your **sketchbook** directory, then download the **fantesting.ino** file into the newly created directory. Download the ZIP file of the **ky040** library from https://github.com/Billwilliams1952/KY-040-Encoder-Library---Arduino and extract it into the **sketchbook/libraries** folder. The schematic (PNG format) is found under the **documents** folder.
 
 ## API Reference
 
