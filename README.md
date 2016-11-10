@@ -21,15 +21,15 @@ The program makes extensive use of the KY-040 Encoder library for the user inter
 
 ## Installation
 
-Create a new folder **fantesting** in your **sketchbook** directory, then download the **fantesting.ino** file into the newly created directory. Download the ZIP file of the ky040 library from https://github.com/Billwilliams1952/KY-040-Encoder-Library---Arduino and extract it into the **sketchbook/libraries** folder.
+Create a new folder **fantesting** in your **sketchbook** directory, then download the **fantesting.ino** file into the newly created directory. Download the ZIP file of the **ky040** library from https://github.com/Billwilliams1952/KY-040-Encoder-Library---Arduino and extract it into the **sketchbook/libraries** folder.
 
 ## API Reference
 
-This program uses the Arduino API (Arduino.h) and the rotary encoder library **ky040**; no other special libraries are required. It has been tested on the Arduino Micro.
+This program uses the Arduino API (**Arduino.h**) and the rotary encoder library **ky040.h**; no other special libraries are required. It has been tested on the Arduino Micro.
 
 ## Tests
 
-See the **examples** under the ky040 library.
+See the **examples** under the **ky040** library.
 
 ## License
 
