@@ -4,10 +4,8 @@ Arduino based circuit for testing PC fans.  General purpose circuitry to demonst
 This sketch controls circuitry to test PC fans in a learning environment.
 
 Fans can be powered on, speed varied using fan PWM (if present), or by PWM the fan power if no PWM input is on the fan. The fan TACH output is read and the fan RPM is automatically calculated and displayed. A separate FAN_TACH_LAMP pulse of variable pulse width is generated and is used to strobe the fan using LEDs for demonstration purposes. The user may manually control the FAN_TACH_LAMP pulse also. The current used by the fan is read and displayed.
- 
-The 9V battery and fan voltage are monitored and may be displayed.
 
-Both the battery voltage and the 12VDC external voltage (if applied and selected) are monitored.
+Both the 9 VDC battery voltage and the 12VDC external voltage (if applied and selected) are monitored.
 
 The program makes extensive use of the KY-040 Encoder library for the user interface. One encoder is used to control menu selection and modifying programmed and displayed values including:
 
