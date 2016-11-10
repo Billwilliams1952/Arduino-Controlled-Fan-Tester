@@ -1,9 +1,10 @@
 # Arduino Controlled Fan Tester
-Arduino based circuit for testing PC fans.  General purpose circuitry to demonstrate programming and engineering concepts
 
-This sketch controls circuitry to test PC fans in a learning environment.
+## Synopsis
 
-Fans can be powered on, speed varied using fan PWM (if present), or by PWM the fan power if no PWM input is on the fan. The fan TACH output is read and the fan RPM is automatically calculated and displayed. A separate FAN_TACH_LAMP pulse of variable pulse width is generated and is used to strobe the fan using LEDs for demonstration purposes. The user may manually control the FAN_TACH_LAMP pulse also. The current used by the fan is read and displayed.
+Arduino based circuit for testing PC fans.  General purpose circuitry to demonstrate programming and engineering concepts. This sketch controls circuitry to test PC fans in a learning environment.
+
+The fan under test can be powered on, speed varied using fan PWM (if present), or by PWM the fan power if no PWM input is on the fan. The fan TACH output is read and the fan RPM is automatically calculated and displayed. A separate FAN_TACH_LAMP pulse of variable pulse width is generated and is used to strobe the fan using LEDs for demonstration purposes. The user may manually control the FAN_TACH_LAMP pulse also. The current used by the fan is read and displayed.
 
 Both the 9 VDC battery voltage and the 12VDC external voltage (if applied and selected) are monitored.
 
@@ -18,4 +19,18 @@ The program makes extensive use of the KY-040 Encoder library for the user inter
 - Display brightness - the user may program the LCD display between 0 (OFF) and 255 (fully ON).
 - Backlight - the user may toggle the backlight ON and OFF
 
-The library may be found at https://github.com/Billwilliams1952/KY-040-Encoder-Library---Arduino.
+## Installation
+
+Create a new folder **fantesting** in your **sketchbook** directory, then download the **fantesting.ino** file into the newly created directory. Download the ZIP file of the ky040 library from https://github.com/Billwilliams1952/KY-040-Encoder-Library---Arduino and extract it into the **sketchbook/libraries** folder.
+
+## API Reference
+
+This program uses the Arduino API (Arduino.h) and the rotary encoder library **ky040**; no other special libraries are required. It has been tested on the Arduino Micro.
+
+## Tests
+
+See the **examples** under the ky040 library.
+
+## License
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
