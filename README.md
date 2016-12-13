@@ -29,7 +29,7 @@ Create a new folder **fantesting** in your **sketchbook** directory, then downlo
 
 ## API Reference
 
-This program uses the Arduino API (**Arduino.h**, **avr/interrupt**, and **avr/io.h**) and the rotary encoder library **ky-040**; no other special libraries are required. It has been tested on the Arduino Micro.
+This program uses the Arduino API (**Arduino.h**, **avr/interrupt.h**, and **avr/io.h**) and the rotary encoder library **ky-040**; no other special libraries are required. It has been tested on the Arduino Micro.
 
 ## License
 
