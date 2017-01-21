@@ -1,4 +1,3 @@
-                                            
 /*
  * FanTesting.ino
  * 2016 WLWilliams
@@ -19,9 +18,6 @@
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details. You should have received a copy of
  * the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * Changelog:
- * 1/20/2017    Added generic support for multiple Arduino board types using #ifdef 'processor type'
  */
 
 #include <Arduino.h>
@@ -45,8 +41,8 @@
 #define FAN_VOLTAGE         A3          // 12VDC divided to give 0 to 5 VDC
 
 #define BOARD_LED           13          // Generic I'm Alive LED
-#define ENCODER_DT          11          // Rotary DT line. Direct input
-#define ENCODER_SW          10          // Rotary switch, active LOW. 470nF on pin
+#define ENCODER_DT          12          // Rotary DT line. Direct input
+#define ENCODER_SW          11          // Rotary switch, active LOW. 470nF on pin
 #define FAN_DRIVER_PWM_OUT   6          // PWM controlled by Timer0
 #define FAN_PWM_OUT          5          // PWM controlled by Timer0
 #define FAN_TACH_LAMP        4          // Variable PRI and Pulsewidth by Timer1
@@ -129,35 +125,33 @@ ky040 rot1(ENCODER_CLK, ENCODER_DT, ENCODER_SW, 8 );
 /*
  *          LCD Screen Functions
  */
-
 void ClearScreen ( void ) {
-    Serial1.write((uint8_t)0xFE); Serial1.write((uint8_t)0x58);
+    Serial1.write(0xFE); Serial1.write(0x58);
 }
 
 void SetCursorType ( CursorType cursorType ) {
     // There is NO blinking underline
-
-    Serial1.write((uint8_t)0xFE);  Serial1.write((uint8_t)0x4B); 
-    Serial1.write((uint8_t)0xFE);  Serial1.write((uint8_t)0x54);
+    
+    Serial1.write(0xFE);  Serial1.write(0x4B); 
+    Serial1.write(0xFE);  Serial1.write(0x54);
     
     switch ( cursorType ) {
         case BLINKING_BLOCK:
-            Serial1.write((uint8_t)0xFE);  Serial1.write((uint8_t)0x53);
+            Serial1.write(0xFE);  Serial1.write(0x53);
             break;
         case UNDERLINE:
-            Serial1.write((uint8_t)0xFE);  Serial1.write((uint8_t)0x4A);
+            Serial1.write(0xFE);  Serial1.write(0x4A);
             break;        
     }
-
 }
 
 void GoToXY ( uint8_t x, uint8_t y ) {
-    Serial1.write((uint8_t)0xFE); Serial1.write((uint8_t)0x47); 
+    Serial1.write(0xFE); Serial1.write(0x47); 
     Serial1.write(x); Serial1.write(y);
 }
 
 void GoHome ( void ) {
-    Serial1.write((uint8_t)0xFE); Serial1.write((uint8_t)0x48);
+    Serial1.write(0xFE); Serial1.write(0x48);
 }
 
 /* ------------------------------------------------------*/
@@ -165,7 +159,7 @@ void GoHome ( void ) {
 void setup() {
     FREE_MEM
   
-    //Serial.begin(9600);
+    Serial.begin(9600);
   
     pinMode(BOARD_LED,OUTPUT);                // I'm alive pulser
     digitalWrite(BOARD_LED,HIGH);             // Initially OFF
@@ -177,15 +171,10 @@ void setup() {
     digitalWrite(FAN_TACH_LAMP,LOW);
     
     pinMode(TACH_INPUT,INPUT_PULLUP);         // TACH interrupt
-    attachInterrupt(digitalPinToInterrupt(TACH_INPUT), FanTachInterrupt, RISING);	
+    attachInterrupt(digitalPinToInterrupt(TACH_INPUT), FanTachInterrupt, RISING);  
     
     Serial1.begin(19200);                     // LCD communication
-    delay(1000);
-    Serial1.write(0xFE); Serial1.write(0xCB); Serial1.write(0xA5); Serial1.write(0xF0); Serial1.write((uint8_t)0); // Lock disable
-        //Serial1.write(0xFE); Serial1.write(0x93); Serial1.write(0x1);
-    Serial1.write(0xFE); Serial1.write(0x39); Serial1.write(0x33);
-    //Serial1.write(0xFE); Serial1.write(0x44); 
-    //Serial1.write(0xFE); Serial1.write(0x52); 
+    delay(200);
 
     rot1.AddRotaryCounter(MAIN_MENU, FANTEST_SCREEN, FANTEST_SCREEN, ABOUT_SCREEN, 1, ROLLOVER );
     rot1.AddRotaryCounter(PWM_DC, 80, MIN_DUTY_CYCLE, MAX_DUTY_CYCLE, 5, NO_ROLLOVER );
@@ -200,7 +189,7 @@ void setup() {
     
 #if defined ( CHANGE_STARTUP_SCREEN )
     Serial1.write(0xFE); Serial1.write(0x40);
-    Serial1.print(F("  FAN TESTING     VERSION 1.0a  "));   // Change version number as required
+    Serial1.print(F("  FAN TESTING     VERSION 1.0   "));   // Change version number as required
 #endif
 
     delay(3000);
@@ -632,7 +621,7 @@ void DisplayScreen ( void ) {
                   backlight = ! backlight;
                   Serial1.write(0xFE);
                   if ( backlight ) {
-                    Serial1.write(0x42); Serial1.write(byte(0));
+                    Serial1.write(0x42); Serial1.write((byte)0);
                   }
                   else Serial1.write(0x46);
                   break;
@@ -753,7 +742,7 @@ void GetCurrent ( void ) {
     #define MAX_AVERAGES 200
 
     FREE_MEM
-
+    
 // TODO:  Check this!!!! Aren't we using 2.56V??
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
     SetReference(INTERNAL2V56);     // Set to internal 2.5V reference
